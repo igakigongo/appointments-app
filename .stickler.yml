@@ -1,6 +1,6 @@
 linters:
-  eslint:
-    config: './.eslintrc.json'
+  # eslint:
+    # config: './.eslintrc.json'
 files:
   ignore:
     - 'node_modules/*'
