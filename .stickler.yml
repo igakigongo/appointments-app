@@ -1,6 +1,11 @@
 linters:
-  eslint:
-    config: './.eslintrc.json'
+  # eslint:
+    # config: './.eslintrc.json'
+
+  stylelint:
+    config: './.stylelintrc.json'
+    fixer: true
+    
 files:
   ignore:
     - 'node_modules/*'
