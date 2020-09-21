@@ -3,13 +3,11 @@ import React from 'react';
 import './styles.scss';
 import SideBar from '../SideBar';
 
-const App = () => {
-  return (
-    <div className="app">
-      <SideBar />
-      <div className="main"></div>
-    </div>
-  );
-}
+const App = () => (
+  <div className="app">
+    <SideBar />
+    <div className="main" />
+  </div>
+);
 
 export default App;
