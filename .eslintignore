@@ -1,0 +1,3 @@
+setupTests.js
+**/*.test.js
+**/build/*
