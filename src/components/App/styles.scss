@@ -1,4 +1,35 @@
-.App {
+@import '../../utils';
+
+.app {
+  border: 1px solid #000;
+  display: grid;
+  grid-template-columns: 15% auto;
+  min-height: 600px;
+  
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid #000;
+    
+    .brand {
+      flex: 0;
+    }
+
+    .nav {
+      flex: 1;
+    }
+
+    .social-icons {
+      flex: 0;
+    }
+  }
+}
+
+
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +66,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
