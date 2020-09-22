@@ -1,3 +1,22 @@
+.sidebar {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .brand {
+    flex: 0;
+  }
+
+  .nav {
+    flex: 1;
+  }
+
+  .social-icons {
+    flex: 0;
+  }
+}
+
 .nav {
   display: flex;
 }
