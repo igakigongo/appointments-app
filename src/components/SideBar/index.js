@@ -1,10 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const SideBar = () => (
   <div className="sidebar">
     <div className="brand">Brand</div>
     <div className="nav">
       <h1>Side Bar</h1>
+      <ul>
+        <li><Link to='/about'>About</Link></li>
+      </ul>
       {/* <ul>
         <li><a href="#">About Us</a></li>
         <li><a href="#">My Appointments</a></li>

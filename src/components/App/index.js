@@ -1,12 +1,19 @@
 import React from 'react';
-// import logo from './logo.svg';
-import './styles.scss';
+import { Route, Switch } from 'react-router-dom';
+import Home from '../Home';
 import SideBar from '../SideBar';
+import './styles.scss';
 
 const App = () => (
   <div className="app">
     <SideBar />
-    <div className="main" />
+    <div className="main">
+      <Switch>
+        <Route exact path='/'>
+          <Home />
+        </Route>
+      </Switch>
+    </div>
   </div>
 );
 
