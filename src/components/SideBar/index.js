@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import ROUTES from '../../routes';
 import './styles.scss';
 
 const getClass = (defaultClass, currentPath) => testPath => currentPath === testPath ?
@@ -21,11 +22,21 @@ const SideBar = () => {
       </div>
       <div className="nav flex-1">
         <ul className="ml-8 uppercase">
-          <li className={isActive('/')}><Link to='/'>About</Link></li>
-          <li className={isActive('/appointments')}><Link to='/'>Appointments</Link></li>
-          <li className={isActive('/login')}><Link to='/'>Login</Link></li>
-          <li className={isActive('/signIn')}><Link to='/'>Sign In</Link></li>
-          <li className={isActive('/signOut')}><Link to='/'>Sign Out</Link></li>
+          <li className={isActive(ROUTES.HOME)}>
+            <Link to={ROUTES.HOME}>About</Link>
+          </li>
+          <li className={isActive(ROUTES.APPOINTMENTS)}>
+            <Link to={ROUTES.APPOINTMENTS}>Appointments</Link>
+          </li>
+          <li className={isActive(ROUTES.SIGN_IN)}>
+            <Link to={ROUTES.SIGN_IN}>Sign In</Link>
+          </li>
+          <li className={isActive(ROUTES.SIGN_OUT)}>
+            <Link to={ROUTES.SIGN_OUT}>Sign Out</Link>
+          </li>
+          <li className={isActive(ROUTES.SIGN_UP)}>
+            <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+          </li>
         </ul>
       </div>
       <div className="flex-none social-icons">

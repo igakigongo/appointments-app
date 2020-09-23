@@ -4,10 +4,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from './components/App';
 import {getAuthToken} from './utils';
 import './index.scss';
+import store from './redux/store';
+import { setToken } from './redux/slices';
 
 const authToken = getAuthToken();
-console.log(authToken);
-// dispatchEvent()
+
+if (authToken){
+  store.dispatch(setToken(authToken));
+}
 
 render(
   <Router>

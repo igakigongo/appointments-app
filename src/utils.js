@@ -6,9 +6,11 @@ function createTestLocalStorage() {
   function getItem(key) {
     return map.get(key);
   }
+
   function removeItem(key) {
     map.delete(key)
   }
+  
   function setItem(key, value) {
     map.set(key, value)
   }
