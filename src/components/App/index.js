@@ -1,4 +1,5 @@
 import React from 'react';
+import { useStore } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { getAuthToken } from '../../utils';
 import Appointments from '../Appointments';
@@ -12,14 +13,16 @@ const PrivateRoute = ({ children, ...rest }) => <Route
   {...rest}
   render={({ location }) => {
     const token = getAuthToken();
-    console.log(token, typeof token);
     return token ? (children)
       : (<Redirect to={{ pathname: "/signIn", state: { from: location } }} />)
   }}
 />;
 
-const App = () => (
-  <div className="app">
+const App = () => {
+  const { token } = useStore().getState();
+  console.log(token);
+
+  return <div className="app">
     <SideBar />
     <div className="main">
       <Switch>
@@ -27,7 +30,7 @@ const App = () => (
         <PrivateRoute children={Appointments} path="/appointments" />
       </Switch>
     </div>
-  </div>
-);
+  </div>;
+};
 
 export default App;
