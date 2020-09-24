@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { signIn } from '../../redux/async-actions';
 import { setToken } from '../../redux/slices';
+import { OK } from '../../response-states';
+import ROUTES from '../../routes';
 
 const SignIn = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [errors, setErrors] = useState([]);
   const [password, setPassword] = useState('');
   const [processing, setProcessing] = useState(false);
@@ -19,12 +23,10 @@ const SignIn = () => {
       .then(async response => {
         const { status } = response;
         const json = await response.json();
-        console.log(status);
-        console.log(typeof status);
-        console.log(json);
-        if (status === 200) {
+        if (status === OK) {
           const { auth_token } = json;
           dispatch(setToken(auth_token));
+          history.push(ROUTES.APPOINTMENTS);
         } else {
           const { message } = json;
           setErrors([message]);

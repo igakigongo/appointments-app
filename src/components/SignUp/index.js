@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { signUp } from '../../redux/async-actions';
 import { setToken } from '../../redux/slices';
+import { CREATED } from '../../response-states';
+import ROUTES from '../../routes';
 
 const SignUp = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState([]);
@@ -54,15 +58,15 @@ const SignUp = () => {
       password, 
       password_confirmation: password 
     };
-    
+
     dispatch(signUp(model))
       .then(async response => {
         const { status } = response;
         const json = await response.json();
-        console.log(json);
-        if (status === 200) {
-          // save the token and redirect
-          // dispatch(setToken())
+        if (status === CREATED) {
+          const { auth_token } = json;
+          dispatch(setToken(auth_token));
+          history.push(ROUTES.APPOINTMENTS);
         } else {
           const { message } = json;
           setErrors([message]);
