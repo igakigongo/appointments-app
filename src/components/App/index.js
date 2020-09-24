@@ -7,6 +7,7 @@ import Appointments from '../Appointments';
 import Home from '../Home';
 import SideBar from '../SideBar';
 import SignIn from '../SignIn';
+import SignUp from '../SignUp';
 import './styles.scss';
 
 // A wrapper for <Route> that redirects to the sign in 
@@ -30,6 +31,7 @@ const App = () => {
       <Switch>
         <Route component={Home} exact path={ROUTES.HOME} />
         <Route component={SignIn} path={ROUTES.SIGN_IN} />
+        <Route component={SignUp} path={ROUTES.SIGN_UP} />
         <PrivateRoute children={Appointments} path={ROUTES.APPOINTMENTS} />
       </Switch>
     </div>
