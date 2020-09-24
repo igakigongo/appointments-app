@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import ROUTES from '../../routes';
 import './styles.scss';
@@ -6,11 +7,13 @@ import './styles.scss';
 const getClass = (defaultClass, currentPath) => testPath => currentPath === testPath ?
   `${defaultClass} active` : defaultClass;
 
-const SideBar = () => {
+const SideBar = ({ token }) => {
   const defaultLinkClass = "p-3 font-bold pl-6 hover:bg-green-500";
   const { pathname } = useLocation();
 
   const isActive = getClass(defaultLinkClass, pathname);
+  const isLoggedIn = token !== null && typeof token !== undefined;
+  console.log(isLoggedIn);
 
   return (
     <div className="sidebar bg-gray-100 flex flex-col justify-between shadow-2xl">
@@ -25,18 +28,23 @@ const SideBar = () => {
           <li className={isActive(ROUTES.HOME)}>
             <Link to={ROUTES.HOME}>About</Link>
           </li>
-          <li className={isActive(ROUTES.APPOINTMENTS)}>
-            <Link to={ROUTES.APPOINTMENTS}>Appointments</Link>
-          </li>
-          <li className={isActive(ROUTES.SIGN_IN)}>
-            <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-          </li>
-          <li className={isActive(ROUTES.SIGN_OUT)}>
-            <Link to={ROUTES.SIGN_OUT}>Sign Out</Link>
-          </li>
-          <li className={isActive(ROUTES.SIGN_UP)}>
-            <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-          </li>
+          {isLoggedIn === false && (<>
+
+            <li className={isActive(ROUTES.SIGN_IN)}>
+              <Link to={ROUTES.SIGN_IN}>Sign In</Link>
+            </li>
+            <li className={isActive(ROUTES.SIGN_UP)}>
+              <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+            </li>
+          </>)}
+          {isLoggedIn && (<>
+            <li className={isActive(ROUTES.APPOINTMENTS)}>
+              <Link to={ROUTES.APPOINTMENTS}>Appointments</Link>
+            </li>
+            <li className={isActive(ROUTES.SIGN_OUT)}>
+              <Link to={ROUTES.SIGN_OUT}>Sign Out</Link>
+            </li>
+          </>)}
         </ul>
       </div>
       <div className="flex-none social-icons">
@@ -53,6 +61,14 @@ const SideBar = () => {
       </div>
     </div>
   );
+};
+
+SideBar.defaultProps = {
+  token: null
+};
+
+SideBar.propTypes = {
+  token: PropTypes.string
 };
 
 export default SideBar;

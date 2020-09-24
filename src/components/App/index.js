@@ -1,10 +1,12 @@
 import React from 'react';
 import { useStore } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import ROUTES from '../../routes';
 import { getAuthToken } from '../../utils';
 import Appointments from '../Appointments';
 import Home from '../Home';
 import SideBar from '../SideBar';
+import SignIn from '../SignIn';
 import './styles.scss';
 
 // A wrapper for <Route> that redirects to the sign in 
@@ -14,7 +16,7 @@ const PrivateRoute = ({ children, ...rest }) => <Route
   render={({ location }) => {
     const token = getAuthToken();
     return token ? (children)
-      : (<Redirect to={{ pathname: "/signIn", state: { from: location } }} />)
+      : (<Redirect to={{ pathname: ROUTES.SIGN_IN, state: { from: location } }} />)
   }}
 />;
 
@@ -23,11 +25,12 @@ const App = () => {
   console.log(token);
 
   return <div className="app">
-    <SideBar />
+    <SideBar token={token} />
     <div className="main">
       <Switch>
-        <Route component={Home} exact path='/' />
-        <PrivateRoute children={Appointments} path="/appointments" />
+        <Route component={Home} exact path={ROUTES.HOME} />
+        <Route component={SignIn} path={ROUTES.SIGN_IN} />
+        <PrivateRoute children={Appointments} path={ROUTES.APPOINTMENTS} />
       </Switch>
     </div>
   </div>;
