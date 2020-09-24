@@ -23,7 +23,6 @@ const PrivateRoute = ({ children, ...rest }) => <Route
 
 const App = () => {
   const { token } = useStore().getState();
-  console.log(token);
 
   return <div className="app">
     <SideBar token={token} />

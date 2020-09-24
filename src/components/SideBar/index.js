@@ -13,7 +13,6 @@ const SideBar = ({ token }) => {
 
   const isActive = getClass(defaultLinkClass, pathname);
   const isLoggedIn = token !== null && typeof token !== undefined;
-  console.log(isLoggedIn);
 
   return (
     <div className="sidebar bg-gray-100 flex flex-col justify-between shadow-2xl">
