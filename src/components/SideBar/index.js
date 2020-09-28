@@ -12,7 +12,6 @@ const SideBar = ({ token }) => {
   const { pathname } = useLocation();
 
   const isActive = getClass(defaultLinkClass, pathname);
-  const isLoggedIn = token !== null && typeof token !== undefined;
 
   return (
     <div className="sidebar bg-gray-100 flex flex-col justify-between shadow-2xl">
@@ -27,7 +26,7 @@ const SideBar = ({ token }) => {
           <li className={isActive(ROUTES.HOME)}>
             <Link to={ROUTES.HOME}>About</Link>
           </li>
-          {isLoggedIn === false && (<>
+          {!token && (<>
 
             <li className={isActive(ROUTES.SIGN_IN)}>
               <Link to={ROUTES.SIGN_IN}>Sign In</Link>
@@ -36,7 +35,7 @@ const SideBar = ({ token }) => {
               <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
             </li>
           </>)}
-          {isLoggedIn && (<>
+          {token && (<>
             <li className={isActive(ROUTES.APPOINTMENTS)}>
               <Link to={ROUTES.APPOINTMENTS}>Appointments</Link>
             </li>
