@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../../redux/store';
 
-test('it renders', () => {
+test.skip('it renders', () => {
   // const { getByText } = render(<App />);
   // const linkElement = getByText(/learn react/i);
   // expect(linkElement).toBeInTheDocument();

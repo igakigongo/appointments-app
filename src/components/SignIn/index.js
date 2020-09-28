@@ -47,7 +47,7 @@ const SignIn = () => {
         <input
           className="bg-gray-200 p-3 rounded my-3 w-full border-none"
           disabled={processing}
-          type="text"
+          type="email"
           onChange={e => { setEmail(e.target.value); }}
           placeholder="email address"
           value={email}>

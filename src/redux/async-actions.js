@@ -1,6 +1,10 @@
 import { getAuthToken } from "../utils";
 
 const API_URL = process.env.REACT_APP_APPOINTMENTS_API_URL;
+const REQUEST_METHOD = {
+  GET: 'GET',
+  POST: 'POST'
+};
 
 const makeHttpRequest = (url, options = {}) => {
   const token = getAuthToken();
@@ -11,18 +15,24 @@ const makeHttpRequest = (url, options = {}) => {
       'Authorization': token ? `Bearer ${token}` : null,
       'Content-Type': contentType || 'application/json;charset=UTF-8',
     },
-    method: method || 'GET'
-  })
+    method: method || REQUEST_METHOD.GET
+  });
 };
 
-export const signIn = (credentials) => () => makeHttpRequest(`${API_URL}/auth/login`,
+export const createAppointment = appointment => () => makeHttpRequest(`${API_URL}/appointments`,
+  {
+    body: appointment,
+    method: REQUEST_METHOD.POST
+  }).then(response => response.json());
+
+export const signIn = credentials => () => makeHttpRequest(`${API_URL}/auth/login`,
   {
     body: credentials,
-    method: 'POST'
+    method: REQUEST_METHOD.POST
   });
 
-export const signUp = (userInfo) => () => makeHttpRequest(`${API_URL}/signup`,
+export const signUp = userInfo => () => makeHttpRequest(`${API_URL}/signup`,
   {
     body: userInfo,
-    method: 'POST'
+    method: REQUEST_METHOD.POST
   });
