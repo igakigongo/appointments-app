@@ -1,6 +1,6 @@
 export const DURATION_TYPE = {
   LONG: 'LONG',
-  SHORT: 'SHORT'
+  SHORT: 'SHORT',
 };
 const STANDARD_TIME_SLOTS = [];
 const TOKEN_KEY = 'TOKEN_KEY';
@@ -53,9 +53,9 @@ export const getEndTime = (startTime, durationType = DURATION_TYPE.SHORT) => {
     }
 
     default: {
-      const new_hour = minutes === 30 ? hour + 1 : hour;
-      const new_minutes = minutes === 30 ? 0 : 30;
-      return `${format(new_hour)}:${format(new_minutes)}`;
+      const newHour = minutes === 30 ? hour + 1 : hour;
+      const newMinutes = minutes === 30 ? 0 : 30;
+      return `${format(newHour)}:${format(newMinutes)}`;
     }
   }
 };
@@ -65,11 +65,10 @@ export const standardTimeSlots = () => {
 
   const slots = [];
   for (let i = 8; i < 19;) {
-    if (i === 13) {
-      i += 1;
-    } else {
-      slots.push(`${format(i)}:00`, `${format(i++)}:30`);
+    if (i !== 13) {
+      slots.push(`${format(i)}:00`, `${format(i)}:30`);
     }
+    i += 1;
   }
 
   STANDARD_TIME_SLOTS.push(...slots);

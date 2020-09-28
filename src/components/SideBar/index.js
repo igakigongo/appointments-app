@@ -4,11 +4,11 @@ import { Link, useLocation } from 'react-router-dom';
 import ROUTES from '../../routes';
 import './styles.scss';
 
-const getClass = (defaultClass, currentPath) => testPath => currentPath === testPath ?
-  `${defaultClass} active` : defaultClass;
+const getClass = (defaultClass, currentPath) => testPath => (currentPath === testPath
+  ? `${defaultClass} active` : defaultClass);
 
 const SideBar = ({ token }) => {
-  const defaultLinkClass = "p-3 font-bold pl-6 hover:bg-green-500";
+  const defaultLinkClass = 'p-3 font-bold pl-6 hover:bg-green-500';
   const { pathname } = useLocation();
 
   const isActive = getClass(defaultLinkClass, pathname);
@@ -19,14 +19,16 @@ const SideBar = ({ token }) => {
         <img
           alt="brand"
           className="ml-auto mr-auto"
-          src="https://img.icons8.com/ios-filled/100/000000/person-calendar.png" />
+          src="https://img.icons8.com/ios-filled/100/000000/person-calendar.png"
+        />
       </div>
       <div className="nav flex-1">
         <ul className="ml-8 uppercase">
           <li className={isActive(ROUTES.HOME)}>
             <Link to={ROUTES.HOME}>About</Link>
           </li>
-          {!token && (<>
+          {!token && (
+          <>
 
             <li className={isActive(ROUTES.SIGN_IN)}>
               <Link to={ROUTES.SIGN_IN}>Sign In</Link>
@@ -34,27 +36,34 @@ const SideBar = ({ token }) => {
             <li className={isActive(ROUTES.SIGN_UP)}>
               <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
             </li>
-          </>)}
-          {token && (<>
+          </>
+          )}
+          {token && (
+          <>
             <li className={isActive(ROUTES.APPOINTMENTS)}>
               <Link to={ROUTES.APPOINTMENTS}>Appointments</Link>
             </li>
             <li className={isActive(ROUTES.SIGN_OUT)}>
               <Link to={ROUTES.SIGN_OUT}>Sign Out</Link>
             </li>
-          </>)}
+          </>
+          )}
         </ul>
       </div>
       <div className="flex-none social-icons">
         <ul className="flex justify-center my-3">
-          <li><i className="fa fa-twitter px-2"></i></li>
-          <li><i className="fa fa-facebook-f px-2"></i></li>
-          <li><i className="fa fa-google-plus px-2"></i></li>
-          <li><i className="fa fa-vimeo px-2"></i></li>
-          <li><i className="fa fa-pinterest-p px-2"></i></li>
+          <li><i className="fa fa-twitter px-2" /></li>
+          <li><i className="fa fa-facebook-f px-2" /></li>
+          <li><i className="fa fa-google-plus px-2" /></li>
+          <li><i className="fa fa-vimeo px-2" /></li>
+          <li><i className="fa fa-pinterest-p px-2" /></li>
         </ul>
         <p className="mb-3 font-semibold text-center text-xs">
-          &copy; {new Date().getFullYear()} - Edward Iga Kigongo
+          &copy;
+          {' '}
+          {new Date().getFullYear()}
+          {' '}
+          - Edward Iga Kigongo
         </p>
       </div>
     </div>
@@ -62,11 +71,11 @@ const SideBar = ({ token }) => {
 };
 
 SideBar.defaultProps = {
-  token: null
+  token: null,
 };
 
 SideBar.propTypes = {
-  token: PropTypes.string
+  token: PropTypes.string,
 };
 
 export default SideBar;

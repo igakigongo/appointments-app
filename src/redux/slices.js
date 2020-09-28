@@ -16,8 +16,8 @@ const appointmentsSlice = createSlice({
     },
     updateAppointment: (state, action) => {
 
-    }
-  }
+    },
+  },
 });
 
 export const appointmentsReducer = appointmentsSlice.reducer;
@@ -33,8 +33,8 @@ const tokenSlice = createSlice({
     removeToken() {
       removeAuthToken();
       return null;
-    }
-  }
+    },
+  },
 });
 
 export const { setToken, removeToken } = tokenSlice.actions;
