@@ -9,7 +9,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const { errors, handleSubmit, register } = useForm();
   const [processing, setProcessing] = useState(false);
-  const [showForm, setShowForm] = useState(true);
+  const [showForm, setShowForm] = useState(false);
 
   const title = showForm ? 'Book an Appointment' : 'Doctor\'s Appointment Booking App';
 

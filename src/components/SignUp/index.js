@@ -6,6 +6,7 @@ import { setToken } from '../../redux/slices';
 import { CREATED } from '../../response-states';
 import ROUTES from '../../routes';
 
+/* eslint-disable react/no-array-index-key */
 const SignUp = () => {
   const dispatch = useDispatch();
   const history = useHistory();

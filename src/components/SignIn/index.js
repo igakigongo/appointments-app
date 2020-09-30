@@ -6,6 +6,7 @@ import { setToken } from '../../redux/slices';
 import { OK } from '../../response-states';
 import ROUTES from '../../routes';
 
+/* eslint-disable react/no-array-index-key */
 const SignIn = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -41,6 +42,7 @@ const SignIn = () => {
         <form className="bg-white shadow-lg rounded px-10 py-16" onSubmit={handleSubmit}>
           {errors.length > 0 && (
           <ul className="list-none text-center text-red-500">
+
             {errors.map((e, i) => (
               <li key={i}>
                 {e}

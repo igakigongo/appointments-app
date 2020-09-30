@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
 import ROUTES from '../../routes';
+import { removeToken } from '../../redux/slices';
 import './styles.scss';
 
 const getClass = (defaultClass, currentPath) => testPath => (currentPath === testPath
   ? `${defaultClass} active` : defaultClass);
 
-const SideBar = ({ token }) => {
+const SideBar = ({ dispatch, token }) => {
   const defaultLinkClass = 'p-3 font-bold pl-6 hover:bg-green-500';
   const { pathname } = useLocation();
 
@@ -28,25 +30,25 @@ const SideBar = ({ token }) => {
             <Link to={ROUTES.HOME}>About</Link>
           </li>
           {!token && (
-          <>
-
-            <li className={isActive(ROUTES.SIGN_IN)}>
-              <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-            </li>
-            <li className={isActive(ROUTES.SIGN_UP)}>
-              <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-            </li>
-          </>
+            <>
+              <li className={isActive(ROUTES.SIGN_IN)}>
+                <Link to={ROUTES.SIGN_IN}>Sign In</Link>
+              </li>
+              <li className={isActive(ROUTES.SIGN_UP)}>
+                <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+              </li>
+            </>
           )}
           {token && (
-          <>
-            <li className={isActive(ROUTES.APPOINTMENTS)}>
-              <Link to={ROUTES.APPOINTMENTS}>Appointments</Link>
-            </li>
-            <li className={isActive(ROUTES.SIGN_OUT)}>
-              <Link to={ROUTES.SIGN_OUT}>Sign Out</Link>
-            </li>
-          </>
+            <>
+              <li className={isActive(ROUTES.APPOINTMENTS)}>
+                <Link to={ROUTES.APPOINTMENTS}>Appointments</Link>
+              </li>
+              <li className={isActive(ROUTES.SIGN_OUT)}>
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <a href="#" onClick={() => { dispatch(removeToken()); }} role="button">Sign Out</a>
+              </li>
+            </>
           )}
         </ul>
       </div>
@@ -60,9 +62,8 @@ const SideBar = ({ token }) => {
         </ul>
         <p className="mb-3 font-semibold text-center text-xs">
           &copy;
-          {' '}
-          {new Date().getFullYear()}
-          {' '}
+          <span className="mr-3">{new Date().getFullYear()}</span>
+          \
           - Edward Iga Kigongo
         </p>
       </div>
@@ -75,7 +76,15 @@ SideBar.defaultProps = {
 };
 
 SideBar.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   token: PropTypes.string,
 };
 
-export default SideBar;
+const mapStateToProps = state => {
+  const { token } = state;
+  return {
+    token,
+  };
+};
+
+export default connect(mapStateToProps)(SideBar);
