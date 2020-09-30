@@ -62,9 +62,9 @@ const SideBar = ({ dispatch, token }) => {
         </ul>
         <p className="mb-3 font-semibold text-center text-xs">
           &copy;
-          <span className="mr-3">{new Date().getFullYear()}</span>
-          \
-          - Edward Iga Kigongo
+          <span className="mx-1">{new Date().getFullYear()}</span>
+          <span className="mx-1">-</span>
+          Edward Iga Kigongo
         </p>
       </div>
     </div>

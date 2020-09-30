@@ -1,3 +1,5 @@
+import { compareAsc, parseISO } from 'date-fns';
+
 export const DURATION_TYPE = {
   LONG: 'LONG',
   SHORT: 'SHORT',
@@ -58,6 +60,16 @@ export const getEndTime = (startTime, durationType = DURATION_TYPE.SHORT) => {
       return `${format(newHour)}:${format(newMinutes)}`;
     }
   }
+};
+
+export const parseAndCompareDateAsc = (a, b) => {
+  const [first, second] = [a.start_date, b.start_date].map(parseISO);
+  return compareAsc(first, second);
+};
+
+export const sortAppointmentsByDateAsc = appointments => {
+  const array = [...appointments];
+  return array.sort(parseAndCompareDateAsc);
 };
 
 export const standardTimeSlots = () => {
