@@ -27,7 +27,7 @@ const SideBar = ({ dispatch, token }) => {
       <div className="nav flex-1">
         <ul className="ml-8 uppercase">
           <li className={isActive(ROUTES.HOME)}>
-            <Link to={ROUTES.HOME}>About</Link>
+            <Link to={ROUTES.HOME}>HOME</Link>
           </li>
           {!token && (
             <>

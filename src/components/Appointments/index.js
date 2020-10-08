@@ -34,11 +34,7 @@ const Appointments = ({ appointments, loadAppointments }) => {
                 <p>
                   {format(startDate, 'EEEE, do MMMM yyyy')}
                   <span className="mx-3">
-                    {format(startDate, 'HH:mm')}
-                    {' '}
-                    to
-                    {' '}
-                    {format(endDate, 'HH:mm')}
+                    {`${format(startDate, 'HH:mm')} to ${format(endDate, 'HH:mm')}`}
                   </span>
                 </p>
                 <p className="pt-4 text-gray-600">{formatDistance(startDate, today, { addSuffix: true })}</p>
