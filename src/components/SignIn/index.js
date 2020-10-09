@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { batch, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { signIn } from '../../redux/async-actions';
 import { setToken } from '../../redux/slices';
@@ -29,10 +29,12 @@ const SignIn = () => {
           history.push(ROUTES.APPOINTMENTS);
         } else {
           const { message } = json;
-          setErrors([message]);
+          batch(() => {
+            setErrors([message]);
+            setProcessing(false);
+          });
         }
-      })
-      .finally(() => { setProcessing(false); });
+      });
   };
 
   return (
