@@ -16,15 +16,15 @@ const SideBar = ({ dispatch, token }) => {
   const isActive = getClass(defaultLinkClass, pathname);
 
   return (
-    <div className="sidebar bg-gray-100 flex flex-col justify-between shadow-2xl">
+    <aside className="sidebar bg-gray-100 flex flex-col justify-between shadow-2xl">
       <div className="brand flex-none p-10">
         <img
           alt="brand"
           className="ml-auto mr-auto"
-          src="https://img.icons8.com/ios-filled/100/000000/person-calendar.png"
+          src="https://img.icons8.com/ios-filled/80/000000/person-calendar.png"
         />
       </div>
-      <div className="nav flex-1">
+      <nav className="flex-1">
         <ul className="ml-8 uppercase">
           <li className={isActive(ROUTES.HOME)}>
             <Link to={ROUTES.HOME}>HOME</Link>
@@ -51,8 +51,8 @@ const SideBar = ({ dispatch, token }) => {
             </>
           )}
         </ul>
-      </div>
-      <div className="flex-none social-icons">
+      </nav>
+      <footer className="flex-none social-icons">
         <ul className="flex justify-center my-3">
           <li><i className="fa fa-twitter px-2" /></li>
           <li><i className="fa fa-facebook-f px-2" /></li>
@@ -66,8 +66,8 @@ const SideBar = ({ dispatch, token }) => {
           <span className="mx-1">-</span>
           Edward Iga Kigongo
         </p>
-      </div>
-    </div>
+      </footer>
+    </aside>
   );
 };
 

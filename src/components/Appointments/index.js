@@ -13,7 +13,7 @@ const Appointments = ({ appointments, loadAppointments }) => {
   const today = Date.now();
 
   return (
-    <div className="p-10">
+    <section className="p-10">
       <h1 className="text-3xl my-4">Appointments</h1>
       {(appointments.length === 0) && (
         <div className="bg-blue-200 p-6 rounded-lg">
@@ -44,7 +44,7 @@ const Appointments = ({ appointments, loadAppointments }) => {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 };
 

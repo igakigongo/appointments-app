@@ -28,14 +28,14 @@ const PrivateRoute = ({ children, ...rest }) => (
 const App = () => (
   <div className="app">
     <SideBar />
-    <div className="main">
+    <main className="main">
       <Switch>
         <Route component={Home} exact path={ROUTES.HOME} />
         <Route component={SignIn} path={ROUTES.SIGN_IN} />
         <Route component={SignUp} path={ROUTES.SIGN_UP} />
         <PrivateRoute children={<Appointments />} path={ROUTES.APPOINTMENTS} />
       </Switch>
-    </div>
+    </main>
   </div>
 );
 
