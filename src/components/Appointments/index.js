@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { format, formatDistance, parseISO } from 'date-fns';
 import { fetchAppointments } from '../../redux/async-actions';
-import { sortAppointmentsByDateAsc } from '../../utils';
+import AppointmentsList from './list';
 
-const Appointments = ({ appointments, loadAppointments }) => {
+const Appointments = ({ appointments, doctors, loadAppointments }) => {
   useEffect(() => {
     loadAppointments();
   }, [loadAppointments]);
-
-  const today = Date.now();
 
   return (
     <section className="p-10">
@@ -21,29 +18,12 @@ const Appointments = ({ appointments, loadAppointments }) => {
           You have not yet scheduled any appointments.
         </div>
       )}
-      <div>
-        {sortAppointmentsByDateAsc(appointments).map(item => {
-          const endDate = parseISO(item.end_date);
-          const startDate = parseISO(item.start_date);
-          return (
-            <div
-              className="flex justify-between bg-white my-3 p-4 rounded shadow"
-              key={item.id}
-            >
-              <div>
-                <p>
-                  {format(startDate, 'EEEE, do MMMM yyyy')}
-                  <span className="mx-3">
-                    {`${format(startDate, 'HH:mm')} to ${format(endDate, 'HH:mm')}`}
-                  </span>
-                </p>
-                <p className="pt-4 text-gray-600">{formatDistance(startDate, today, { addSuffix: true })}</p>
-              </div>
-              <span>{item.reason}</span>
-            </div>
-          );
-        })}
-      </div>
+      {(appointments.length > 0) && (
+      <AppointmentsList
+        appointments={appointments}
+        doctors={doctors}
+      />
+      )}
     </section>
   );
 };
@@ -53,14 +33,16 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => {
-  const { appointments } = state;
+  const { appointments, doctors: { data: doctors } } = state;
   return {
     appointments,
+    doctors,
   };
 };
 
 Appointments.propTypes = {
   appointments: PropTypes.arrayOf(PropTypes.any).isRequired,
+  doctors: PropTypes.arrayOf(PropTypes.any).isRequired,
   loadAppointments: PropTypes.func.isRequired,
 };
 
