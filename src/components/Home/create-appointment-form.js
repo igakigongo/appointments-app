@@ -1,29 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { createAppointment } from '../../redux/async-actions';
+import { createAppointment, fetchDoctors } from '../../redux/async-actions';
 import { getEndTime, standardTimeSlots } from '../../utils';
 
-const CreateAppointmentForm = ({ setShowForm }) => {
+const CreateAppointmentForm = ({ doctors, fetchingDoctors, setShowForm }) => {
   const dispatch = useDispatch();
   const [processing, setProcessing] = useState(false);
   const { errors, handleSubmit, register } = useForm();
 
+  useEffect(() => {
+    dispatch(fetchDoctors());
+  }, [dispatch]);
+
   const onSubmitHandler = data => {
     setProcessing(true);
-    const { date, reason, time } = data;
+    const {
+      date, doctorId, reason, time,
+    } = data;
     const endTime = getEndTime(time);
 
     const appointment = {
+      doctor_id: doctorId,
       end_date: `${date}T${endTime}`,
       reason,
       start_date: `${date}T${time}`,
     };
 
     dispatch(createAppointment(appointment))
-      .finally(() => {
+      .then(() => {
         setProcessing(false);
+        setShowForm(false);
       });
   };
 
@@ -38,12 +46,31 @@ const CreateAppointmentForm = ({ setShowForm }) => {
         onSubmit={handleSubmit(onSubmitHandler)}
       >
         <div className="my-3 w-full">
+          <label htmlFor="doctor">
+            Select a Doctor
+            <select
+              className="bg-gray-300 p-3 rounded my-3 w-full border-none"
+              disabled={fetchingDoctors || processing || doctors.length === 0}
+              id="doctorId"
+              name="doctorId"
+              ref={register({ required: true })}
+            >
+              {(doctors.length > 0) && doctors.map(doctor => (
+                <option key={doctor.id} value={doctor.id}>
+                  {`${doctor.name} - (${doctor.speciality})`}
+                </option>
+              ))}
+            </select>
+            {errors.doctorId && <span className="text-red-600">* this field is required</span>}
+          </label>
+        </div>
+        <div className="my-3 w-full">
           <label htmlFor="date">
             Date and Time
-            <div className="flex w-full">
-              <div className="w-4/5">
+            <div className="flex">
+              <div className="w-3/5 mr-3">
                 <input
-                  className="bg-gray-200 p-3 rounded my-3 w-full border-none mr-3"
+                  className="bg-gray-300 p-3 rounded my-3 w-full border-none"
                   defaultValue=""
                   disabled={processing}
                   id="date"
@@ -53,9 +80,9 @@ const CreateAppointmentForm = ({ setShowForm }) => {
                 />
                 {errors.date && <span className="text-red-600">* this field is required</span>}
               </div>
-              <div className="w-1/5">
+              <div className="w-2/5 ml-3">
                 <select
-                  className="bg-gray-200 py-4 px-3 rounded my-3 w-full border-none ml-3"
+                  className="bg-gray-300 py-4 px-3 rounded my-3 w-full border-none"
                   disabled={processing}
                   name="time"
                   ref={register({ required: true })}
@@ -75,7 +102,7 @@ const CreateAppointmentForm = ({ setShowForm }) => {
           <label htmlFor="reason">
             Reason
             <input
-              className="bg-gray-200 p-3 rounded my-3 w-full border-none"
+              className="bg-gray-300 p-3 rounded my-3 w-full border-none"
               defaultValue=""
               disabled={processing}
               id="reason"
@@ -108,7 +135,17 @@ const CreateAppointmentForm = ({ setShowForm }) => {
 };
 
 CreateAppointmentForm.propTypes = {
+  doctors: PropTypes.arrayOf(PropTypes.any).isRequired,
+  fetchingDoctors: PropTypes.bool.isRequired,
   setShowForm: PropTypes.func.isRequired,
 };
 
-export default CreateAppointmentForm;
+const mapStateToProps = state => {
+  const { data, fetching } = state.doctors;
+  return {
+    doctors: data,
+    fetchingDoctors: fetching,
+  };
+};
+
+export default connect(mapStateToProps)(CreateAppointmentForm);

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import CreateForm from './create-appointment-form';
 import './styles.scss';
 
-const Home = () => {
+const Home = ({ token }) => {
   const [showForm, setShowForm] = useState(false);
 
   return (
@@ -16,7 +18,12 @@ const Home = () => {
           <button
             className="bg-green-600 hover:bg-green-800 text-white font-bold py-4 px-4 rounded-full shadow-2xl"
             onClick={() => {
-              setShowForm(true);
+              if (token) {
+                setShowForm(true);
+              } else {
+                /* eslint-disable-next-line no-alert */
+                window.alert('You need to Sign In before creating an appointment');
+              }
             }}
             type="button"
           >
@@ -28,4 +35,19 @@ const Home = () => {
   );
 };
 
-export default Home;
+Home.defaultProps = {
+  token: null,
+};
+
+Home.propTypes = {
+  token: PropTypes.string,
+};
+
+const mapStateToProps = state => {
+  const { token } = state;
+  return {
+    token,
+  };
+};
+
+export default connect(mapStateToProps)(Home);

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import { removeAuthToken, setAuthToken } from '../utils';
 
@@ -37,6 +38,28 @@ export const {
   updateAppointment,
 } = appointmentsSlice.actions;
 export const appointmentsReducer = appointmentsSlice.reducer;
+
+const doctorsSlice = createSlice({
+  name: 'doctors',
+  initialState: {
+    data: [],
+    fetching: false,
+  },
+  reducers: {
+    fetchingDoctors: (state, action) => {
+      state.fetching = action.payload;
+    },
+    initDoctors: (state, action) => {
+      state.data = action.payload;
+    },
+  },
+});
+
+export const {
+  fetchingDoctors,
+  initDoctors,
+} = doctorsSlice.actions;
+export const doctorsReducer = doctorsSlice.reducer;
 
 const tokenSlice = createSlice({
   name: 'token',
