@@ -7,11 +7,13 @@ import { getAuthToken } from './utils';
 import store from './redux/store';
 import { setToken } from './redux/slices';
 import './index.scss';
+import { fetchDoctors } from './redux/async-actions';
 
 const authToken = getAuthToken();
 
 if (authToken) {
   store.dispatch(setToken(authToken));
+  store.dispatch(fetchDoctors());
 }
 
 render(
