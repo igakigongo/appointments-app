@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ToastProvider } from 'react-toast-notifications';
 import App from './components/App';
 import { getAuthToken } from './utils';
 import store from './redux/store';
@@ -20,7 +21,9 @@ render(
   <Router>
     <React.StrictMode>
       <Provider store={store}>
-        <App />
+        <ToastProvider autoDismiss>
+          <App />
+        </ToastProvider>
       </Provider>
     </React.StrictMode>
   </Router>,
