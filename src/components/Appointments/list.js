@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { format, formatDistance, parseISO } from 'date-fns';
 import { sortAppointmentsByDateAsc } from '../../utils';
+import MemoizedDoctor from './doctor';
 
 const AppointmentsList = ({ appointments, doctors }) => {
   const today = Date.now();
@@ -27,9 +28,7 @@ const AppointmentsList = ({ appointments, doctors }) => {
         </div>
         <div className="flex flex-col justify-between text-right">
           <span>{item.reason}</span>
-          <span className="pt-4 text-gray-600 text-sm">
-            {`${doctor.name} - ${doctor.speciality}`}
-          </span>
+          <MemoizedDoctor doctor={doctor} />
         </div>
       </article>
     );
@@ -38,6 +37,7 @@ const AppointmentsList = ({ appointments, doctors }) => {
 
 AppointmentsList.propTypes = {
   appointments: PropTypes.arrayOf(PropTypes.any).isRequired,
+  doctors: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default AppointmentsList;
