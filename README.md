@@ -1,4 +1,4 @@
-# Calculator
+# Appointments Booking APP
 
 The goal is to design a browser-based appointments booking app using [React](https://reactjs.org/). It should interact with an [API](github.com/igakigongo/appointments-api).
 
