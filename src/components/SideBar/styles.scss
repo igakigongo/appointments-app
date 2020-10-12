@@ -1,0 +1,14 @@
+nav {
+  ul > li {
+    border-bottom-left-radius: 25px;
+    border-top-left-radius: 25px;
+
+    &.active, &:hover{
+      color: #fff;
+    }
+
+    &.active {
+      background-color: #68d391;
+    }
+  }
+}

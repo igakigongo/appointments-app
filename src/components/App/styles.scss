@@ -1,0 +1,7 @@
+@import '../../utils';
+
+.app {
+  display: grid;
+  grid-template-columns: 15% auto;
+  min-height: 100vh;
+}

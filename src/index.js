@@ -1,17 +1,31 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ToastProvider } from 'react-toast-notifications';
+import App from './components/App';
+import { getAuthToken } from './utils';
+import store from './redux/store';
+import { setToken } from './redux/slices';
+import './index.scss';
+import { fetchDoctors } from './redux/async-actions';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+const authToken = getAuthToken();
+
+if (authToken) {
+  store.dispatch(setToken(authToken));
+  store.dispatch(fetchDoctors());
+}
+
+render(
+  <Router>
+    <React.StrictMode>
+      <Provider store={store}>
+        <ToastProvider autoDismiss>
+          <App />
+        </ToastProvider>
+      </Provider>
+    </React.StrictMode>
+  </Router>,
+  document.getElementById('root'),
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
